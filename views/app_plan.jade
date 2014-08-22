@@ -19,11 +19,12 @@ html
 					= '当前套餐     ' + current.expire + '到期'
 				else
 					= '当前无套餐'
-			div.consumption
-				span.level VIP1
-				div.progress-bar
-					div.progress(style='width:' + ( current ? current.consumption : 0 ) / limit * 100 + '%;')
-				span.accurate= (current ? current.consumption : 0) + '/' + limit
+			if current
+				div.consumption
+					span.level= current.type
+					div.progress-bar
+						div.progress(style='width:' + current.consumption / current.limit * 100 + '%;')
+					span.accurate= current.consumption + '/' + ( current.limit ? current.limit : '无限' )
 			a.buy(href='/order/preview/'+app.name) 立即充值
 		div.plan-history.container
 			p
@@ -37,7 +38,7 @@ html
 					th 有效期
 				for plan in plans
 					tr
-						td VIP1
+						td= plan.type
 						if plan.planState == 'NOW'
 							td.current 正在执行
 						else if plan.planState == 'FUTURE'

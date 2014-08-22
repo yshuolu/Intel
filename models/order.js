@@ -3,7 +3,9 @@
  */
 
 var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+	Schema = mongoose.Schema,
+	env = process.env.NODE_ENV || 'development',
+	config = require('../config')[env];
 	//alphaId = require('../utils/alphaid');
 
 /**
@@ -12,6 +14,7 @@ var mongoose = require('mongoose'),
 
 var OrderSchema = Schema({
 	orderId: Number, // use int as order unique id
+	type: String,
 	app: {type: Schema.Types.ObjectId, ref: 'App'}, // order for which app
 	pending: {type: Boolean, default: true}, // default pending
 	createdAt: {type: Date, default: Date.now}
@@ -46,6 +49,11 @@ OrderSchema.path('pending').validate(function(pending, fn){
 		fn(true);
 	}
 }, 'app already has peding order');
+
+//check if valid type
+OrderSchema.path('type').validate(function(type){
+	return type in config.planPolicy;
+});
 
 /**
  * Virtuals

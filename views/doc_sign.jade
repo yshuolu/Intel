@@ -1,0 +1,52 @@
+doctype html
+html
+	head 
+		meta(charset='utf-8')
+		title 签名
+		link(href='/stylesheets/base.css', rel='stylesheet')
+		link(href='/stylesheets/nav.css', rel='stylesheet')
+		link(href='/stylesheets/doc.css', rel='stylesheet')
+	body
+		include ./nav.jade
+		div.container.doc
+			h1 API请求签名
+			h3 概述
+			p 本文档将介绍91云智汇所使用的请求签名方法，请求签名用于保护请求不被第三方盗用。签名所使用的方法是HMAC-SHA256。在构造签名之前，我们需要获取access_key和一个未签名的请求。access_key可以在应用的“鉴权”选项中获取。如何构造一个未签名的请求请参考该文档。
+			h3 未签名请求
+			p 一个未签名请求如下：
+			pre= 'api.yun.com/cell?mnc=0&lac=1&cell=1&access_id=7afb1aed47efc13104f4caec2f067de9&timestamp=1408716782'
+			p 当构造好签名之后，只需要把签名作为signature参数添加到请求中，最终的合法请求就完成了。
+			h3 构造参数string
+			p 我们并不直接把HMAC-SHA256方法作用于如上的未签名请求上，而是对为签名请求进行提取，构造出一个待签名string。然后我们对这个待签名string进行签名。
+			p 首先我们需要获得参数string（初始化为空串）：
+			ol
+				li 搜集所有的请求参数的key-value对，例如，mnc=0、timestamp=1131333等等
+				li 对这些key-value对的按key的字母顺序由小到大排序
+				li 对于排序后的所有key-value对：
+				li 添加key到参数string
+				li 添加'='到参数string
+				li 添加value到参数string
+				li 如果还有更多的key-value对，添加'&'到参数string
+			p 参数string样例：
+			pre= 'access_id=7afb1aed47efc13104f4caec2f067de9&cell=1&lac=1&mnc=0&timestamp=1408716782'
+			h3 构造待签名string
+			p 构造一个待签名string包括：
+			ol
+				li 对于请求地址进行url_encode
+				li 在url_encode的请求地址之后添加'&'
+				li 对于上一步构造的请求参数string进行url_encode，添加到到待签名string
+			h3 签名
+			p 到这一步，代签名string已经构造完成了。我们需要使用HMAC-SHA256对其进行签名。HMAC-SHA256所使用的key即为应用的access_key。最后我们需要对二进制的签名进行base64编码转化成string。
+			p Python签名代码样例：
+			pre.
+				#sign string with HMAC-SHA256
+
+				m = hmac.new(access_key, stringToSign, hashlib.sha256)
+				signature = base64.b64encode( m.digest() )
+				return signature
+			h3 把签名作为参数添加的请求中
+			p 我们已经获得了签名参数，我们需要把签名作为参数添加到请求当中，从而完全的构造了一个合法的API请求。
+			p API请求样例：
+			pre= 'http://api.yun.com/cell?mnc=0&lac=1&cell=1&access_id=7afb1aed47efc13104f4caec2f067de9&timestamp=1408716782&signature=MRSeAaBix8d%2FjZOE7Vr2swuTySAp%2BODsBX7tPu%2BhSFw%3D'
+		div.container.more
+			a.pull-left(href='/doc/restapi') <-REST API使用

@@ -1,0 +1,40 @@
+.billing {
+	color: #64697B;
+}
+
+h1.title {
+	margin: 60px 0px;
+	font-size: 40px;
+}
+
+.billing table {
+	width: 100%;
+	text-align: left;
+	table-layout: fixed;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+table, th, td {
+	vertical-align: top;
+	font-size: 14px;
+	border: solid 1px #64697B;
+	padding: 5px;
+}
+
+.billing table tr:first-child th {
+	background-color: #F5F5F5;
+	font-size: 16px;
+}
+
+.explain {
+	margin-bottom: 50px;
+}
+
+.explain ol li {
+	margin: 10px 0px;
+}
+
+.explain ol li p {
+	margin: 5px 0px;
+}

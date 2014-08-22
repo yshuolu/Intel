@@ -1,0 +1,34 @@
+.doc {
+	color: #64697B;
+}
+
+.doc h1 {
+	margin: 42px 0px 60px 24px;
+    font-size: 30px;
+    text-align: left;
+    color: black;
+}
+
+.doc h3 {
+	color: black;
+}
+
+.doc pre {
+	min-height: 50px;
+	overflow: scroll;
+	background-color: #F5F5F5;
+	padding: 5px;
+}
+
+.doc p {
+	text-indent: 1em;
+}
+
+.more {
+	padding: 50px;
+	border-top: solid 1px #F5F5F5;
+}
+
+.more a {
+	text-decoration: underline;
+}

@@ -13,26 +13,6 @@ var mongoose = require('mongoose'),
     config = require('../config')[env],
     moment = require('moment-timezone');
 
-/**
- * Middleware to load app from access id
- */
-
-// exports.loadApp = function(){
-// 	return function(req, res, next, accessid){
-// 		App
-// 			.findOne({accessId: accessid})
-// 			.populate('plan')
-// 			.exec(function(err, app){
-// 				if (!err && app){
-// 					req.userApp = app;
-
-// 					next();
-// 				}else{
-// 					next(err ? err : new Error('app not exits!'));
-// 				}
-// 			});
-// 	}
-// }
 
 exports.loadOrder = function(){
 	return function(req, res, next){
@@ -149,13 +129,15 @@ exports.pendingOrders = function(req, res, next){
 exports.newBillingPlan = function(req, res, next){
 	//
 	//var appId = req.userApp._id;
-	var appId = req.order.app._id;
+	//var appId = req.order.app._id;
 
 	//level 1
-	var level = 1;
+	//var level = 1;
+
+	var order = req.order;
 
 	//find the latest high level billing plan
-	BillingPlan.latestPlanForApp(appId, function(err, plan){
+	BillingPlan.latestPlanForApp(order.app._id, function(err, plan){
 		var current = new Date();
 
 		//if plan exists and not expired yet
@@ -165,18 +147,19 @@ exports.newBillingPlan = function(req, res, next){
 
 		//create new billing plan
 		var newPlan = new BillingPlan({
-			app: appId,
+			app: order.app._id,
+			type: order.type,
 			start: current,
-			expire: new Date( current.getTime() + minutesToMilliseconds(config.billPlanInterval) ),
-			level: level
+			expire: new Date( current.getTime() + config.planPolicy[order.type].interval ),
+			// level: level
 		});
 
 		newPlan.save(function(err){
 			if (err) return next(err);
 			
 			//finish order
-			req.order.pending = false;
-			req.order.save(function(err){
+			order.pending = false;
+			order.save(function(err){
 				if (err) return next(err);
 
 				return res.redirect('/admin');

@@ -1,0 +1,19 @@
+doctype html
+html
+	head
+		meta(charset='utf-8')
+		title 文档
+		link(href='/stylesheets/base.css', rel='stylesheet')
+		link(href='/stylesheets/nav.css', rel='stylesheet')
+		link(href='/stylesheets/doclist.css', rel='stylesheet')
+	body
+		include ./nav.jade
+		div.container.doclist
+			h1.title 91云智汇API文档
+			ul
+				li
+					a(href='/doc/restapi') REST API的使用
+					small by phineas. 2014-7-1
+				li
+					a(href='/doc/sign') API请求签名
+					small by phineas. 2014-7-2

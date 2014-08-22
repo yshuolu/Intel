@@ -10,7 +10,7 @@
         border-bottom: 1px dotted #CACACA;
 }
 
-.pendinglist .item {
+.pendinglist tr:not(:first-child):not(:nth-child(2)) {
         cursor: pointer;
         height: 50px;
         font-size: 16px;
@@ -24,8 +24,8 @@
         height: 50px;
 }
 
-.pendinglist .padding {
-        height: 20px;
+tr.padding {
+       height: 10px;
 }
 
 .approve-form button {

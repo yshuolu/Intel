@@ -93,13 +93,13 @@ exports.statistics = function(){
 
 //No more support for default billing
 exports.bill = function(){
-	function _bill(req, res, next){
+	return function(req, res, next){
 		var plan = req.app.plan;
 
 		//to fix bug, sometimes plan is just the object id
 		//cause crash
 		//to modify
-		if ( plan && !('isExpired' in plan) ) return next();
+		// if ( plan && !('isExpired' in plan) ) return next();
 
 		if (!plan || plan.isExpired(req.query.timestamp)){
 			//no plan or current plan is expired, need to find a up to date plan
@@ -113,26 +113,23 @@ exports.bill = function(){
 				req.app.save(function(err){
 					if (err) return next(err);
 
-					//the app has already updated, need to populate the plan
-					req.app.plan = validPlan;
-
-					_bill(req, res, next);
+					validPlan.consume(1, function(err){return next(err);});
 				});
 			});
 
-		}else if (plan.isExhausted(config.planLimit[plan.level])){
-			//current plan runs out
-			//reject
-			return next(newError('PLAN_OUT'));
-
-		}else{
+		}else {
 			//+1
-			return plan.consume(1, function(err){return next(err);});
+			return plan.consume(1, function(err){
+				if (err && err.name === 'PLAN_OUT'){
+					return next(newError('PLAN_OUT'));
+				}else{
+					return next(err);
+				}
+			});
 
 		}
 	}
 
-	return _bill;
 }
 
 /**

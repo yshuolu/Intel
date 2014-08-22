@@ -34,7 +34,8 @@ html
 				var xhr = new XMLHttpRequest();
 				xhr.onreadystatechange = function(){
 					if (xhr.readyState === 4 && xhr.status === 200){
-						document.querySelector('.return').textContent = xhr.responseText;
+						var json = JSON.parse(xhr.responseText);
+						document.querySelector('.return').textContent = JSON.stringify(json, null, ' ');
 					}
 				}
 				xhr.open('GET', 'http://api.yun.com/trial/cell/near?lng=' + document.getElementsByName('lng')[0].value + '&lat=' + document.getElementsByName('lat')[0].value + '&dis=' + document.getElementsByName('dis')[0].value);

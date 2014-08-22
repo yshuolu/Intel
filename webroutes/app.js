@@ -52,7 +52,10 @@ exports.create = function(req, res){
 	newApp.save(function(err, app){
 		if (err){
 			if (err.name === 'ValidationError'){
-				req.session.error = '该应用名已存在，请更换新的名称';
+				req.session.msg = {
+					type: 'error',
+					content: '该应用名已存在，请更换新的名称'
+				};
 				return res.redirect('/app/new');
 			}else{
 				return next(err);
@@ -141,6 +144,7 @@ exports.show = function(req, res, next){
 			//format current if needed
 			if (current) {
 				current = current.toObject();
+				current.limit = config.planPolicy[current.type].limit;
 				current.expire = time.chinaMoment(current.expire).format('MM月DD日');
 			}
 
@@ -166,12 +170,26 @@ exports.show = function(req, res, next){
 				allPlans.push(plan);
 			}
 
+			//tag all plan's type
+			//for each plan, tag its type
+			var typeDictionary = {
+				monthPlan1: '包月VIP1',
+				monthPlan2: '包月VIP2',
+				monthPlan3: '包月VIP3',
+				yearPlan: '包年套餐'
+			};
+
+			if (current)
+				current.type = typeDictionary[current.type];
+			allPlans.forEach(function(plan){
+				plan.type = typeDictionary[plan.type];
+			});
+
 			var renderParams = {
 				user: req.session.user,
 				app: req.userApp,
 				current: current,
 				plans: allPlans,
-				limit: config.planLimit[1],
 				index: 1
 			};
 
@@ -228,8 +246,8 @@ exports.delete = function(req, res){
  */
 
 exports.createPage = function(req, res){
-	res.render('newapp', {user: req.session.user, error: req.session.error});
-	req.session.error = null;
+	res.render('newapp', {user: req.session.user, msg: req.session.msg});
+	req.session.msg = null;
 }
 
 

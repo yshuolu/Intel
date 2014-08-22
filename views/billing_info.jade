@@ -1,0 +1,87 @@
+doctype html
+html
+	head
+		meta(charset='utf-8')
+		title 计费
+		link(href='/stylesheets/base.css', rel='stylesheet')
+		link(href='/stylesheets/nav.css', rel='stylesheet')
+		link(href='/stylesheets/billing_info.css', rel='stylesheet')
+	body
+		include ./nav.jade
+		div.container.billing
+			h1.title 91云智慧基站定位服务价格表（未含税点）
+			table
+				tr
+					th 服务模式
+					th 详细描述
+					th 功能描述
+					th 次数说明
+					th 有效期 
+					th 服务价格
+					th 当前状态
+				tr
+					td 免费查询
+					td 免费试用基站查询
+					td 新用户限次免费，根据基站信息，返回国家标准经纬度坐标信息和地理描述信息
+					td 每个ip每天限制查询10次，一个ip至多免费查询50次
+					td 当日有效
+					td 免费
+					td 需要注册后才能使用试查功能
+				tr
+					td 计次模式
+					td 以预付费方按次使用基站定位服务
+					td 根据基站信息，返回国家标准经纬度坐标信息和地理描述信息
+					td 0.1元/一次，按次收费不限次
+					td 不限有效期
+					td (0.1元)*访问次数
+					td 即将开通
+				tr
+					td 包年模式
+					td 以包年方式在服务期内不计次使用基站定位服务
+					td 
+					td 不限次数
+					td 1年（包两年送一年）
+					td 50000元/每年
+					td 已开通服务
+				tr
+					td VIP1（初级接口）
+					td 包月方式30W/月
+					td 
+					td 每天10000次
+					td 订购日期到期之前都为有效期
+					td 2400元/月
+					td 已开通服务
+				tr5
+					td VIP2（中级接口）
+					td 包月方式60W/月
+					td 
+					td 每天20000次
+					td 
+					td 6000元/月
+					td 已开通服务
+				tr
+					td VIP3（高级接口）
+					td 包月方式90W/月
+					td 
+					td 每天30000次
+					td 
+					td 12000元/月
+					td 已开通服务
+				tr
+					td 基站数据库（只提供全国）
+					td 直接提供数据库（数量目前660W 以上具体数据根据实际统计为准）
+					td 含基站参数，和国家标准经纬度坐标信息和地理描述信息
+					td 
+					td 预定更新服务截止为止
+					td 120000元；每年5800元增量
+					td 已开通服务
+			div.explain
+				h3 说明：
+				ol
+					li 基站定位服务为粗定位服务，因基站覆盖范围不同，接口匹配结果与准确程度也会受此影响，91云智慧不承担定位服务返回的经纬度数值与实际地物经纬度之间的差值而引发的任何责任；
+					li 计次模式采用预付费模式，预付之后剩余次数不能退还；
+					li 报价接受方需对本价格严格保密，不得向任何第三方泄露；
+					li 技术服务主要包括培训和远程技术支持： 
+						p A  &nbsp培训（地点须在北京本地）
+						p B  &nbsp远程技术支持（包括电话、邮件、MSN等），对客户问题响应时间为2个工作日内
+						p C  &nbsp91云智慧会针对每个项目指定专业的技术支持

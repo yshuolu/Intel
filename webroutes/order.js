@@ -16,6 +16,7 @@ exports.create = function(req, res, next){
 
 		var newOrder = new Order({
 			app: app._id,
+			type: req.body.type,
 			orderId: uniqueId(),
 			pending: true
 		});

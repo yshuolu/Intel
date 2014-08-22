@@ -13,7 +13,9 @@ var user = require('../../webroutes/user'),
 	appController = require('../../webroutes/app');
 	admin = require('../../webroutes/admin'),
 	order = require('../../webroutes/order'),
-	api = require('../../webroutes/api');
+	api = require('../../webroutes/api'),
+	billingInfo = require('../../webroutes/billinginfo'),
+	doc = require('../../webroutes/doc');
 
 module.exports = function(app){
 	app.get('/', appController.list);
@@ -51,4 +53,12 @@ module.exports = function(app){
 	app.get('/api', api.list);
 	app.get('/api/cell', api.cell);
 	app.get('/api/cellnearby', api.cellnearby);
+
+	//Billing info
+	app.get('/billing', billingInfo.show);
+
+	//Doc
+	app.get('/doc', doc.list);
+	app.get('/doc/restapi', doc.restApiDoc);
+	app.get('/doc/sign', doc.signDoc);
 }

@@ -1,0 +1,32 @@
+doctype html
+html
+	head
+		meta(charset='utf-8')
+		title REST API使用
+		link(href='/stylesheets/base.css', rel='stylesheet')
+		link(href='/stylesheets/nav.css', rel='stylesheet')
+		link(href='/stylesheets/doc.css', rel='stylesheet')
+	body
+		include ./nav.jade
+		div.container.doc
+			h1 REST API使用
+			h3 概述
+			p 本文档将解释如何使用91云智汇REST API服务，即如何构造合法的API请求。当前所有的基站数据接口均使用GET方法，请求参数分为两类：1、鉴权参数；2、接口参数。91云智汇提供的所有接口均使用相同的鉴权参数，例如access_id、signature，鉴权参数用于验证当前请求为合法用户请求；但是不同的接口之间所使用的接口参数不同，取决于接口本身所提供的功能，例如基站查询接口需要提供mnc、lac、cell参数。
+			p 一个合法的基站请求接口样例如下：
+			pre= 'http://api.yun.com/cell?mnc=0&lac=1&cell=1&access_id=7afb1aed47efc13104f4caec2f067de9&timestamp=1408716782&signature=MRSeAaBix8d%2FjZOE7Vr2swuTySAp%2BODsBX7tPu%2BhSFw%3D'
+			p 其中，access_id、signature和timestamp是鉴权参数，丢失这些参数或者参数不正确的请求会被拒绝服务；mnc、lac、cell分别是运营商号码、小区号、大区号，用于查询相应的基站。添加参数的顺序与请求结果无关，除了要保证signature要签名整个请求。具体的签名方法查看此文档。
+			h3 请求地址
+			p API请求由请求地址和请求参数构成，每个接口的请求地址列在相应的接口说明中。例如，基站查询接口的请求地址为：
+			pre api.yun.com/cell
+			h3 请求参数
+			p 如上，请求参数由鉴权参数和接口参数构成，鉴权参数是不同接口之间通用的，并且与具体的接口功能无关。本REST API服务使用了3个鉴权参数：access_id用于标识发出该请求的应用；timestamp是UNIX时间戳，用于标识当前请求发出的时间；signature是请求的签名，用于验证该请求的完整性和正确性，即保护用户所购买的API服务不会被第三方盗用。
+			h3 添加鉴权参数
+			p 要使用API服务，首先需要创建App，并且获取access_id和access_key。注意access_key不要被泄露，同时拥有access_id和access_key即可以发送合法的API请求。
+			p 其次，获取标准UNIX时间戳用作timestamp参数，所有常用语言都有获取UNIX时间戳的库方法。
+			p 当添加完这两个参数后，我们还不能添加signature参数，因为signature参数是整个请求的签名，签名了请求地址、其余鉴权参数和接口相关参数，因此让我们先添加接口参数。
+			h3 添加接口参数
+			p 当添加完access_id和timestamp之后，我们需要添加真正和业务逻辑相关的接口参数。例如，基于地理位置的基站搜索需要提供经纬度和范围参数，而基站搜索需要提供运营商编号等等。每个接口所需的参数及其类型都不相同，具体参考每个接口的说明文档。
+			h3 签名
+			p 到了这一步我们已经获得了如下的请求，这个请求已经标明了发出该请求的App，以及具体的搜索参数。但是这个请求可能被恶意第三方获取，然后使用相同的access_id构造更多其他的API请求，导致购买服务的用户请求量被盗用。因此我们需要最后一个参数，signature来保护该请求。91云智慧汇使用统一的请求签名方法，具体的签名的方法参考该文档。
+		div.container.more
+			a.pull-right(href='/doc/sign') 签名文档->

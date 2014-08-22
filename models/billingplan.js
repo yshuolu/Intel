@@ -3,7 +3,9 @@
  */
 
 var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+	Schema = mongoose.Schema,
+	env = process.env.NODE_ENV || 'development',
+	config = require('../config')[env];
 
 /**
  * Billing schema
@@ -11,9 +13,10 @@ var mongoose = require('mongoose'),
 
 var BillingPlanSchema = Schema({
 	app: {type: Schema.Types.ObjectId, ref: 'App'},
+	type: String, //indicate the plan type
 	start: {type: Date}, //both start and end are Unix timestamp
 	expire: {type: Date}, // [start, expire)
-	level: {type: Number, default: 0}, //app level, default lowest, i.e. 0
+	// level: {type: Number, default: 0}, //app level, default lowest, i.e. 0
 	consumption: {type: Number, default: 0}, //api consumption
 });
 
@@ -32,7 +35,13 @@ BillingPlanSchema.methods = {
 	 * @api public
 	 */
 	consume: function(amount, fn){
-		this.update({$inc: {consumption: amount}}, fn);
+		if (this.type === 'yearPlan' || this.consumption + amount <= config.planPolicy[this.type].limit){
+			this.update({$inc: {consumption: amount}}, fn);
+		}else{
+			var err = new Error();
+			err.name = 'PLAN_OUT';
+			return fn(err);
+		}
 	},
 
 	/**
@@ -43,12 +52,12 @@ BillingPlanSchema.methods = {
 	 *
 	 * @api public
 	 */
-	renewDefaultPlan: function(interval){
-		this.start = new Date();
-		this.expire = new Date( this.start.getTime() + interval);
-		this.consumption = 1;
-		this.level = 0;
-	},
+	// renewDefaultPlan: function(interval){
+	// 	this.start = new Date();
+	// 	this.expire = new Date( this.start.getTime() + interval);
+	// 	this.consumption = 1;
+	// 	this.level = 0;
+	// },
 
 	/**
 	 * Test if the plan is expired compared to the timstamp
@@ -74,9 +83,9 @@ BillingPlanSchema.methods = {
 	 * 
 	 * @api public
 	 */
-	isExhausted: function(limit){
-		return this.consumption >= limit;
-	}
+	// isExhausted: function(limit){
+	// 	return this.consumption >= limit;
+	// }
 
 }
 

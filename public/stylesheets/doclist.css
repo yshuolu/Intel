@@ -1,0 +1,30 @@
+.doclist {
+	color: #64697B;
+}
+
+.doclist .title {
+	text-align: left;
+	margin: 42px 0px 60px 24px;
+    font-size: 30px;
+}
+
+.doclist ul {
+	width: 60%;
+	list-style: none;
+}
+
+.doclist ul li {
+	border-top: solid 1px #F5F5F5;
+	height: 100px;
+}
+
+.doclist ul li a {
+	font-size: 20px;
+	display: block;
+	margin: 20px;
+}
+
+.doclist ul li small {
+	display: block;
+	text-indent: 2em;
+}

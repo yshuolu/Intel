@@ -36,7 +36,8 @@ html
 				var xhr = new XMLHttpRequest();
 				xhr.onreadystatechange = function(){
 					if (xhr.readyState === 4 && xhr.status === 200){
-						document.querySelector('.return').textContent = xhr.responseText;
+						var json = JSON.parse(xhr.responseText);
+						document.querySelector('.return').textContent = JSON.stringify(json, null, ' ');
 					}
 				}
 				xhr.open('GET', 'http://api.yun.com/trial/cell?lac=' + document.getElementsByName('lac')[0].value + '&cell=' + document.getElementsByName('cell')[0].value + (document.getElementsByName('hex')[0].checked?'&hex=true':'')+ '&mnc=' + document.getElementsByName('mnc')[0].value);
