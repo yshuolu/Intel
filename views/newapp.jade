@@ -17,4 +17,4 @@ html
 				input(type='text', name='url', placeholder='URL')
 				textarea(name='description', rows='6', placeholder='应用描述')
 				button(type='submit') 创建
-			p.error= msg.content
+			p.error= msg ? msg.content : ''

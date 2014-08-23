@@ -24,7 +24,7 @@ module.exports = {
 		/**
 		 * Api server config
 		 */
-		timestampExpire: 15,
+		timestampExpire: hoursToMillis(15),
 		allowedDomains: ['http://91yzh.com'],
 		allowedHeaders: ['User-Email', 'User-Trial-Key'],
 

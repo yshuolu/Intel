@@ -38,7 +38,7 @@ exports.appAuth = function(){
 
 		var currentTimestamp = Math.round( new Date().getTime() / 1000 )
 
-		if (currentTimestamp - requestTimestamp > config.timestampExpire * 60){ 
+		if (currentTimestamp - requestTimestamp > config.timestampExpire){ 
 			//reject the request as replay attack
 			return next(newError('INVALID_TIMESTAMP'));
 		}
