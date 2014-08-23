@@ -52,8 +52,8 @@ app.webApp = webApp;
 app.apiApp = apiApp;
 
 //subdomain settings
-app.use(vhost('yun.com', webApp));      //webApp host yun.com
-app.use(vhost('api.yun.com', apiApp));  //apiApp host api.yun.com
+app.use(vhost('91yzh.com', webApp));      //webApp host yun.com
+app.use(vhost('api.91yzh.com', apiApp));  //apiApp host api.yun.com
 
 /**
  * Init all models

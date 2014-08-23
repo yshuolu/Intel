@@ -19,13 +19,13 @@ module.exports = {
 		 * Web server config
 		 */
 		secret: 'this is a secret',
-		sessionMaxAge: 9000000,
+		sessionMaxAge: daysToMillis(1),
 
 		/**
 		 * Api server config
 		 */
 		timestampExpire: 15,
-		allowedDomains: ['http://yun.com'],
+		allowedDomains: ['http://91yzh.com'],
 		allowedHeaders: ['User-Email', 'User-Trial-Key'],
 
 		/**
