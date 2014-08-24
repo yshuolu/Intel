@@ -17,14 +17,17 @@ module.exports = function(app, config){
 	app.use(gate.allowCrossDomain());
 
 	//middleware for auth request, only apply to normal request, i.e., request path without prefix '/trial'
-	app.useExceptPrefix('/trial', gate.appAuth());
+	app.use('/cell', gate.appAuth());
 	//middleware for bill app, only apply to normal request
-	app.useExceptPrefix('/trial', gate.bill());
+	app.use('/cell', gate.bill());
 
 	//middleware for auth user, only apply to trial request, i.e., request path with prefix '/trial' 
 	app.use('/trial', gate.trialAuth());
 	//middleware for count trial, only apply to trial request
 	app.use('/trial', gate.countTrial());
+
+	//count ip
+	app.use('/iptrial', gate.countIP());
 }
 
 /**

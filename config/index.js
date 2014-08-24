@@ -50,7 +50,13 @@ module.exports = {
 		 * Trial config
 		 */
 		trialLimit: 10, 
-		trialInterval: minutesToMillis(10) //trial interval in minutes 
+		trialInterval: minutesToMillis(10), //trial interval in minutes 
+
+		/**
+		 * IP count
+		 */
+		ipCountLimit: 10,
+		ipCountAlive: minutesToMillis(1)
 	},
 
 	/**

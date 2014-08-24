@@ -24,6 +24,10 @@ app.apiApp.magicGet(base, search, trim);
 //search nearest cells with LNG, LAT and Dis: /cell/near
 app.apiApp.magicGet(path.join(base, 'near'), searchNearest, trim);
 
+//use as the IP trial
+//may be modified later
+app.apiApp.get('/iptrial', search, trim);
+
 //predefined hex radix
 var HEX_RADIX = 16
 

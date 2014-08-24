@@ -14,7 +14,8 @@ var mongoose = require('mongoose'),
 	ApiStat = mongoose.model('ApiStat'),
 	BillingPlan = mongoose.model('BillingPlan'),
 	crypto = require('crypto'),
-	newError = require('../config/apiapp/error').newError;
+	newError = require('../config/apiapp/error').newError,
+	IPCount = mongoose.model('IPCount');
 
 //Todo: modify the way to get config
 var env = process.env.NODE_ENV || 'development',
@@ -207,7 +208,36 @@ exports.allowCrossDomain = function(){
 		return next();
 	}
 }
- 
+
+//count IP
+exports.countIP = function(){
+	return function(req, res, next){
+		IPCount
+			.findOne({ip: req.ip})
+			.exec(function(err, ip){
+				if (err) return next(err);
+
+				if (ip){
+					ip.consume(function(err){
+						if (err && err.name === 'IP_LIMIT'){
+							return next(newError('TRIAL_OUT'));
+						}else{
+							return next(err);
+						}
+					});
+
+				}else{
+					var newIP = new IPCount({
+						ip: req.ip
+					});
+
+					newIP.save(function(err){
+						return next(err);
+					});
+				}
+			});
+	}
+} 
 
 /**
  * Local function to verify user request signature.
