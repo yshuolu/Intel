@@ -4,7 +4,9 @@ var express = require('express'),
 	cookieParser = require('cookie-parser'),
 	session = require('express-session'),
 	bodyParser = require('body-parser'),
-	auth = require('../../middlewares/auth');
+	auth = require('../../middlewares/auth'),
+	env = process.env.NODE_ENV || 'development',
+	config = require('../../config')[env];
 
 //root dir
 rootDir = path.join(__dirname, '..', '..');
@@ -20,7 +22,7 @@ module.exports = function(app, config){
 	//middleware settings
 	app.use(morgan('dev'));
 	app.use(cookieParser());
-	app.use(session({secret: "This is a secret"}));
+	app.use(session({secret: config.secret}));
 	app.use(bodyParser());
 	app.use(express.static(path.join(rootDir, 'public')));
 }
