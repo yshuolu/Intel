@@ -57,34 +57,13 @@ exports.appAuth = function(){
 					if ( verifySignature(req) ){
 						next();
 					}else{
-						next(newError('INVALID_SIGNATURE'));
+						next(newError('INVALID_SIGN'));
 					}
 
 				}else{
 					next(newError('INVALID_ACCESSID'));
 				}
 			});
-	}
-}
-
-/**
- * Middleware for api statistics.
- * Record the meta data about api access.
- * For example, record which app use which api and the count.
- */
-
-exports.statistics = function(){
-	return function(req, res, next){
-		ApiStat.updateStat(req.app._id, req.path, function(err, newCount){
-			if (!err){
-				//update the api count successfully
-				next();
-
-			}else{
-				//can not increment the api count
-				next(newError('INTERNAL'));
-			}
-		});
 	}
 }
 
@@ -267,7 +246,7 @@ function verifySignature(req){
 
 	//compose the string to sign
 	//var hash = crypto.createHmac('sha1', 'ad').update('huahua').digest('hex');
-	var stringToSign = encodeURIComponent(req.host+req.path) + '&' + encodeURIComponent(paramString);
+	var stringToSign = encodeURIComponent(req.hostname+req.originalUrl.split('?')[0]) + '&' + encodeURIComponent(paramString);
 
 	//sign this string with user's access_key, and encode the binary digest by base64
 	//var accessKey = req.app.access_key;
