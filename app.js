@@ -7,7 +7,8 @@ var express = require('express'),
 	fs = require('fs'),
 	Memcached = require('memcached'),
 	env = process.env.NODE_ENV || 'development',
-	config = require('./config')[env];
+	config = require('./config')[env],
+	errorHandler = require('errorhandler');
 
 /**
  * Connect mongodb
@@ -68,6 +69,7 @@ fs.readdirSync(modelsPath).forEach(function(file){
  */
 require('./config/webapp/setapp')(webApp, config);
 require('./config/webapp/route')(webApp);
+require('./config/webapp/error')(webApp);
 
 /**
  * Api app config
