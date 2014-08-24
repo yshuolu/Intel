@@ -127,7 +127,7 @@ exports.list = function(req, res, next){
 
 	}else{
 		//user not logged in, show land page
-		res.render('landing');
+		res.render('landing', {config: config});
 	}
 }
 

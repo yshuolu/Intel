@@ -36,7 +36,24 @@ html
 					input(type='email', name='email', placeholder='邮箱', required)
 					input(type='password', name='pass', placeholder='密码', pattern='.{6,}', title='最少6位密码', required)
 					button(type='submit') 创建账号
-
+		div.trial
+			div.container
+				table
+					tr
+						td
+							form
+								| MNC: 
+								input(type='text', name='mnc', id='mnc')
+								br
+								| LAC: 
+								input(type='text', name='lac', id='lac')
+								br
+								| CELL:
+								input(type='text', name='cell', id='cell')
+								br
+								button(type='button', onclick='request();') 试查
+						td
+							pre.result
 		div.shelf
 			div.container
 				table
@@ -83,6 +100,18 @@ html
 				h2 一次包月，享用所用数据接口
 				h3 现在加入云智汇
 				a(href='/signup') 立即使用云智汇
-
 		div.footer
 			div.container
+		p.dummy(style='display: none;')= config.url
+		script.
+			function request(){
+				var xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function(){
+					if (xhr.readyState === 4 && xhr.status === 200){
+						var json = JSON.parse(xhr.responseText);
+						document.querySelector('.result').textContent = JSON.stringify(json, null, ' ');
+					}
+				}
+				xhr.open('GET', 'http://api.'+document.querySelector('.dummy').textContent+'/iptrial?mnc='+document.querySelector('#mnc').value+'&lac='+document.querySelector('#lac').value+'&cell='+document.querySelector('#cell').value);
+				xhr.send();
+			}
