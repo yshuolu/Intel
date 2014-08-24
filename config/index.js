@@ -1,5 +1,13 @@
 module.exports = {
+	/**
+	 * Development
+	 */
 	development: {
+		/**
+		 * Url
+		 */
+		url: 'yun.com',
+		
 		/**
 		 * Mongodb config
 		 */
@@ -24,14 +32,13 @@ module.exports = {
 		/**
 		 * Api server config
 		 */
-		timestampExpire: hoursToMillis(15),
-		allowedDomains: ['http://91yzh.com'],
+		timestampExpire: minutesToMillis(15),
+		allowedDomains: ['http://yun.com'],
 		allowedHeaders: ['User-Email', 'User-Trial-Key'],
 
 		/**
 		 * Billing plan config
 		 */
-		billPlanInterval: 10, //10 minutes
 		planPolicy: {
 			yearPlan: {interval: minutesToMillis(20), limit: 0}, //year plan has no request amount limit
 			monthPlan1: {interval: minutesToMillis(10), limit: 300}, //month vip1, 300 thousand
@@ -43,16 +50,61 @@ module.exports = {
 		 * Trial config
 		 */
 		trialLimit: 10, 
-		trialInterval: 1 //trial interval in minutes 
+		trialInterval: minutesToMillis(10) //trial interval in minutes 
 	},
 
+	/**
+	 * Production
+	 */
 	production: {
+		/**
+		 * Url
+		 */
+		url: '91yzh.com',
+
+		/**
+		 * Mongodb config
+		 */
+		db: 'mongodb://localhost/data_platform',
+
+		/**
+		 * Memcache config
+		 */
+		cacheServer: 'localhost:11211',
+
+		/**
+		 * Dispatch Server config
+		 */
+		port: 8888,
+
+		/**
+		 * Web server config
+		 */
+		secret: 'Go home shawn',
+		sessionMaxAge: daysToMillis(7),
+
+		/**
+		 * Api server config
+		 */
+		timestampExpire: minutesToMillis(15),
+		allowedDomains: ['http://91yzh.com'],
+		allowedHeaders: ['User-Email', 'User-Trial-Key'],
+
+		/**
+		 * Billing plan config
+		 */
 		planPolicy: {
 			yearPlan: {interval: yearsToMillis(1), limit: 0}, //year plan has no request amount limit
 			monthPlan1: {interval: monthsToMillis(1), limit: 300000}, //month vip1, 300 thousand
 			monthPlan2: {interval: monthsToMillis(1), limit: 600000}, //month vip2, 600 thousand
 			monthPlan3: {interval: monthsToMillis(1), limit: 900000}, //month vip3, 900 thousand
-		}
+		},
+
+		/**
+		 * Trial config
+		 */
+		trialLimit: 10, 
+		trialInterval: daysToMillis(1)  
 	}
 }
 

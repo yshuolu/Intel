@@ -9,6 +9,7 @@ html
 		link(href='/stylesheets/cell_trial.css', rel='stylesheet')
 	body
 		include ./nav.jade
+		p.apiurl(style='display:none;')= apiUrl
 		div.header.container
 			h3.breadcrumb= '数据接口 > ' + info.title
 			include ./api_tabbar.jade
@@ -38,7 +39,7 @@ html
 						document.querySelector('.return').textContent = JSON.stringify(json, null, ' ');
 					}
 				}
-				xhr.open('GET', 'http://api.91yzh.com/trial/cell/near?lng=' + document.getElementsByName('lng')[0].value + '&lat=' + document.getElementsByName('lat')[0].value + '&dis=' + document.getElementsByName('dis')[0].value);
+				xhr.open('GET', 'http://'+document.querySelector('.apiurl').textContent+'/trial/cell/near?lng=' + document.getElementsByName('lng')[0].value + '&lat=' + document.getElementsByName('lat')[0].value + '&dis=' + document.getElementsByName('dis')[0].value);
 				xhr.setRequestHeader('User-Email', document.getElementsByName('User-Email')[0].value);
 				xhr.setRequestHeader('User-Trial-Key', document.getElementsByName('User-Trial-Key')[0].value);
 				xhr.send();

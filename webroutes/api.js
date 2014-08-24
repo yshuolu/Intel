@@ -1,3 +1,6 @@
+var env = process.env.NODE_ENV || 'development',
+	config = require('../config')[env];
+
 exports.list = function(req, res, next){
 	res.render('apilist', {user: req.session.user, index: 0});
 }
@@ -36,7 +39,7 @@ exports.cell = function(req, res, next){
 
 		case 'trial':
 			if (!req.session.user) return res.redirect('/signin');
-			return res.render('cell_trial', {user: req.session.user, info: info, apiName: 'cell', index: 2});
+			return res.render('cell_trial', {user: req.session.user, info: info, apiName: 'cell', index: 2, apiUrl: 'api.' + config.url});
 			break;
 
 		case 'offline':
@@ -100,7 +103,7 @@ exports.cellnearby = function(req, res, next){
 
 		case 'trial':
 			if (!req.session.user) return res.redirect('/signin');
-			return res.render('cellnearby_trial', {user: req.session.user, info: info, apiName: 'cellnearby', index: 2});
+			return res.render('cellnearby_trial', {user: req.session.user, info: info, apiName: 'cellnearby', index: 2, apiUrl: 'api.' + config.url});
 			break;
 
 		case 'offline':

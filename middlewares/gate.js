@@ -36,9 +36,9 @@ exports.appAuth = function(){
 
 		if (isNaN(requestTimestamp)) return next(newError('INVALID_TIMESTAMP'));
 
-		var currentTimestamp = Math.round( new Date().getTime() / 1000 )
+		// var currentTimestamp = Date().getTime();
 
-		if (currentTimestamp - requestTimestamp > config.timestampExpire){ 
+		if (new Date().getTime() - requestTimestamp * 1000 > config.timestampExpire){ 
 			//reject the request as replay attack
 			return next(newError('INVALID_TIMESTAMP'));
 		}
@@ -170,7 +170,7 @@ exports.countTrial = function(){
 					user: req.user._id
 				});
 
-				newTrial.renew(minutesToMilliseconds(config.trialInterval), config.trialLimit, function(err){
+				newTrial.renew(config.trialInterval, config.trialLimit, function(err){
 					if (err) return next(err);
 
 					//everything goes well
@@ -178,7 +178,7 @@ exports.countTrial = function(){
 				});
 
 			}else if (trial.isExpired()){
-				trial.renew(minutesToMilliseconds(config.trialInterval), config.trialLimit, function(err){
+				trial.renew(config.trialInterval, config.trialLimit, function(err){
 					if (err) return next(err);
 
 					//everything goes well
@@ -275,6 +275,6 @@ function saveDocArray(array, fn){
 	});
 }
 
-function minutesToMilliseconds(minutes){
-	return minutes * 60 * 1000;
-}
+// function minutesToMilliseconds(minutes){
+// 	return minutes * 60 * 1000;
+// }

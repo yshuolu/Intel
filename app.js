@@ -13,7 +13,7 @@ var express = require('express'),
  * Connect mongodb
  */
 var connect = function(){
-	var options = {server: {socketOptions: {keepAlive: 1}}, user: 'app', pass: 'wenhui'};
+	var options = {server: {socketOptions: {keepAlive: 1}}, user: process.env.DB_USER, pass: process.env.DB_PASS};
 	mongoose.connect(config.db, options);
 }
 
@@ -52,8 +52,8 @@ app.webApp = webApp;
 app.apiApp = apiApp;
 
 //subdomain settings
-app.use(vhost('91yzh.com', webApp));      //webApp host yun.com
-app.use(vhost('api.91yzh.com', apiApp));  //apiApp host api.yun.com
+app.use(vhost(config.url, webApp));      //webApp host yun.com
+app.use(vhost('api.'+config.url, apiApp));  //apiApp host api.yun.com
 
 /**
  * Init all models

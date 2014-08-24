@@ -50,7 +50,7 @@ exports.signupPage = function(req, res){
  * User login
  */
 
-exports.signin = function(req, res){
+exports.signin = function(req, res, next){
 	User
 		.findOne({email: req.body.email})
 		.exec(function(err, user){
