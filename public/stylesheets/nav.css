@@ -27,6 +27,7 @@
 }
 
 .nav li a.active {
+	background-color: #2B2F32;
 }
 
 .nav-header, .nav {

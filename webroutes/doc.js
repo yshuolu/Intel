@@ -1,5 +1,5 @@
 exports.list = function(req, res){
-	res.render('doclist');
+	res.render('doclist', {index: 2});
 }
 
 exports.restApiDoc = function(req, res){
