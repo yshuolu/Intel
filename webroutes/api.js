@@ -9,27 +9,33 @@ exports.cell = function(req, res, next){
 	var info = {
 		title: '移动基站编号查询接口',
 		description: '根据LAC和CELL号查询详细基站信息',
-		address: '91yzh.cn/cell',
-		example: 'api.yun.com/cell?lac=1&cell=1&access_id=be23d8b5735ebb9752c860255d9f207d&timestamp=1406876439&signature=KsSGoHq',
+		address: '91yzh.com/cell',
+		example: 'api.91yzh.com/cell?mnc=0&lac=1&cell=1&access_id=7afb1aed47efc13104&timestamp=1408924405&signature=3Yr33u',
 		params: [
+			['mnc', 'number', '运营商号码，0 代表移动，1 代表联通，其它代表电信'],
 			['lac', 'number', '大区号'],
 			['cell', 'number', '小区号'],
 			['hex', 'bool', 'true代表使用16进制，默认10进制']
 		],
 		return: JSON.stringify([{
-					"MCC": 460,
-					"MNC": 13824,
-					"LAC": 1,
-					"CELL": 1,
-					"LAC16": "1",
-					"CELL16": "1",
-					"LNG": 116.95,
-					"LAT": 28.29,
-					"O_LNG": 116.95,
-					"O_LAT": 28.29,
-					"PRECISION": 1500,
-					"ADDRESS": "江西省鹰潭市余江县龙风路中童镇叶家塘叶家塘东"
-				}], null, 4)
+					mcc: 460,
+					mnc: 0,
+					lac: 1,
+					cell: 1,
+					lng: 113.55808,
+					lat: 22.19444,
+					o_lng: 113.55808,
+					o_lat: 22.19444,
+					precision: 1500,
+					address: "特别行政区澳门特别行政区澳门半岛湾仔街道茂盛围加油站西北",
+					province: "特别行政区",
+					county: "澳门半岛",
+					town: "湾仔街道",
+					village: "茂盛围",
+					city: "澳门特别行政区",
+					street: "",
+					streetno: ""
+					}], null, 4)
 	};
 
 	switch (req.query.tab){
@@ -57,8 +63,8 @@ exports.cellnearby = function(req, res, next){
 	var info = {
 		title: '移动基站经纬度查询接口',
 		description: '查询某一经纬度坐标周边一定距离范围内的最近基站信息（最多10个）',
-		address: '91yzh.cn/cell/near',
-		example: 'api.yun.com/cell/near?access_id=c2ddcce410a09ed964a&dis=1000&lat=41.27&lng=82.96&timestamp=1406905004&signature=9OlgMv%',
+		address: '91yzh.com/cell/near',
+		example: 'api.91yzh.com/cell/near?access_id=c2ddcce410a09ed964a&dis=1000&lat=41.27&lng=82.96&timestamp=1406905004&signature=9OlgMv%',
 		params: [
 			['lng', 'number', '经度'],
 			['lat', 'number', '纬度'],
@@ -66,32 +72,23 @@ exports.cellnearby = function(req, res, next){
 		],
 		return: JSON.stringify([
 					{
-					"MCC": 460,
-					"MNC": 0,
-					"LAC": 42327,
-					"CELL": 24661167,
-					"LAC16": "A556",
-					"CELL16": "1784CAF",
-					"LNG": 114.02,
-					"LAT": 23.01,
-					"O_LNG": 114.03,
-					"O_LAT": 23.01,
-					"PRECISION": 878,
-					"ADDRESS": "广东省东莞市沙湖口市场路附近"
-					},
-					{
-					"MCC": 460,
-					"MNC": 0,
-					"LAC": 9563,
-					"CELL": 44806,
-					"LAC16": "255A",
-					"CELL16": "AF06",
-					"LNG": 114.02,
-					"LAT": 23.01,
-					"O_LNG": 114.02,
-					"O_LAT": 23.01,
-					"PRECISION": 1716,
-					"ADDRESS": "广东省东莞市池田西路附近"
+					mcc: 460,
+					mnc: 0,
+					lac: 1,
+					cell: 1,
+					lng: 113.55808,
+					lat: 22.19444,
+					o_lng: 113.55808,
+					o_lat: 22.19444,
+					precision: 1500,
+					address: "特别行政区澳门特别行政区澳门半岛湾仔街道茂盛围加油站西北",
+					province: "特别行政区",
+					county: "澳门半岛",
+					town: "湾仔街道",
+					village: "茂盛围",
+					city: "澳门特别行政区",
+					street: "",
+					streetno: ""
 					}
 				], null, 4)
 	};
