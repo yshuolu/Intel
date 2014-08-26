@@ -1,7 +1,7 @@
 import sys, urllib2, time, urllib
 import sign
 
-url = 'api.yun.com/cell'
+url = 'api.yun.com/cell/search'
 #url = 'api.91yzh.cn/cell'
 
 access_id = '7afb1aed47efc13104f4caec2f067de9'

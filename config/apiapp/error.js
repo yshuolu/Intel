@@ -72,15 +72,10 @@ function newError(type){
 	return error;
 }
  
-function errorHandler(){
+exports.errorHandler = function(){
 	return function(err, req, res, next){
 
 		if (err.status) res.statusCode = err.status;
-
-		//404 NOT FOUND
-		if (400 <= res.statusCode && res.statusCode <= 499) {
-			err = newError('NOT_FOUND');
-		}
 
 		//errors not defined
 		if (!err.errorCode){
@@ -96,8 +91,12 @@ function errorHandler(){
 	}
 }
 
+exports._404 = function(){
+	return function(req, res){
+		var err = newError('NOT_FOUND');
+		res.json({error: {code: err.errorCode, error: err.message}});
+	}
+}
+
 exports.newError = newError;
 
-exports.errorConfig = function(app){
-	app.use(errorHandler());
-}

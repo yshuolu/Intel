@@ -2,7 +2,7 @@ var env = process.env.NODE_ENV || 'development',
 	config = require('../config')[env];
 
 exports.list = function(req, res, next){
-	res.render('apilist', {user: req.session.user, index: 0});
+	res.render('apilist', {user: req.session.user, nav: 0});
 }
 
 exports.cell = function(req, res, next){

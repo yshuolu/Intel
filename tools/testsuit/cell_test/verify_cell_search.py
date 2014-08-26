@@ -79,7 +79,10 @@ def allHit(sample, result):
 
 
 def paramHit(sample, result):
-	return sample['mnc'] == result['mnc'] and sample['lac'] == result['lac'] and sample['cell'] == result['cell']
+	if sample['mnc'] not in [0, 1]:
+		return result['mnc'] not in [0, 1] and sample['lac'] == result['lac'] and sample['cell'] == result['cell']
+	else:
+		return sample['mnc'] == result['mnc'] and sample['lac'] == result['lac'] and sample['cell'] == result['cell']
 
 if __name__ == '__main__':
 	main()

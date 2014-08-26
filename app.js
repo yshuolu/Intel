@@ -49,6 +49,8 @@ var app = express(),
 
 exports = module.exports = app; //export dispatcher app
 app.memcached = memcached;
+app.configObj = config;
+
 app.webApp = webApp;
 app.apiApp = apiApp;
 
@@ -72,17 +74,9 @@ require('./config/webapp/route')(webApp);
 require('./config/webapp/error')(webApp);
 
 /**
- * Api app config
+ * Setup api app
  */
-
-//config the app
-require('./config/apiapp/setapp')(apiApp, config);
-
-//boot all controllers, there are no global routing config, it is MVC style
-require('./config/apiapp/boot')(apiApp);			
-
-//error handler
-require('./config/apiapp/error').errorConfig(apiApp);
+require('./setup/apiapp')(apiApp);
 
 /**
  * Launch dispatcher app

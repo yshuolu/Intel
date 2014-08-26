@@ -112,6 +112,6 @@ html
 						document.querySelector('.result').textContent = JSON.stringify(json, null, ' ');
 					}
 				}
-				xhr.open('GET', 'http://api.'+document.querySelector('.dummy').textContent+'/iptrial?mnc='+document.querySelector('#mnc').value+'&lac='+document.querySelector('#lac').value+'&cell='+document.querySelector('#cell').value);
+				xhr.open('GET', 'http://api.'+document.querySelector('.dummy').textContent+'/trial/ip/cell/search?mnc='+document.querySelector('#mnc').value+'&lac='+document.querySelector('#lac').value+'&cell='+document.querySelector('#cell').value);
 				xhr.send();
 			}

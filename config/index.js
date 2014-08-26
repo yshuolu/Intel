@@ -56,7 +56,19 @@ module.exports = {
 		 * IP count
 		 */
 		ipCountLimit: 10,
-		ipCountAlive: minutesToMillis(1)
+		ipCountAlive: minutesToMillis(1),
+
+		/**
+		 * Cache key policy
+		 */
+		cacheKeyPolicy: {
+			'/search': {
+				params: ['mnc', 'lac', 'cell']
+			},
+			'/nearset': {
+				params: ['lng', 'lat', 'dis']
+			}
+		}
 	},
 
 	/**
@@ -77,6 +89,18 @@ module.exports = {
 		 * Memcache config
 		 */
 		cacheServer: 'localhost:11211',
+
+		/**
+		 * Cache key policy
+		 */
+		cacheKeyPolicy: {
+			'/search': {
+				params: ['mnc', 'lac', 'cell']
+			},
+			'/nearset': {
+				params: ['lng', 'lat', 'dis']
+			}
+		},
 
 		/**
 		 * Dispatch Server config
