@@ -9,8 +9,8 @@ exports.cell = function(req, res, next){
 	var info = {
 		title: '移动基站编号查询接口',
 		description: '根据LAC和CELL号查询详细基站信息',
-		address: '91yzh.com/cell',
-		example: 'api.91yzh.com/cell?mnc=0&lac=1&cell=1&access_id=7afb1aed47efc13104&timestamp=1408924405&signature=3Yr33u',
+		address: '91yzh.com/cell/search',
+		example: 'api.91yzh.com/cell/search?mnc=0&lac=1&cell=1&access_id=7afb1aed47efc13104&timestamp=1408924405&signature=3Yr33u',
 		params: [
 			['mnc', 'number', '运营商号码，0 代表移动，1 代表联通，其它代表电信'],
 			['lac', 'number', '大区号'],
@@ -63,8 +63,8 @@ exports.cellnearby = function(req, res, next){
 	var info = {
 		title: '移动基站经纬度查询接口',
 		description: '查询某一经纬度坐标周边一定距离范围内的最近基站信息（最多10个）',
-		address: '91yzh.com/cell/near',
-		example: 'api.91yzh.com/cell/near?access_id=c2ddcce410a09ed964a&dis=1000&lat=41.27&lng=82.96&timestamp=1406905004&signature=9OlgMv%',
+		address: '91yzh.com/cell/nearest',
+		example: 'api.91yzh.com/cell/nearest?access_id=c2ddcce410a09ed964a&dis=1000&lat=41.27&lng=82.96&timestamp=1406905004&signature=9OlgMv%',
 		params: [
 			['lng', 'number', '经度'],
 			['lat', 'number', '纬度'],

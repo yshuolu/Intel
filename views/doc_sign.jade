@@ -14,7 +14,7 @@ html
 			p 本文档将介绍91云智汇所使用的请求签名方法，请求签名用于保护请求不被第三方盗用。签名所使用的方法是HMAC-SHA256。在构造签名之前，我们需要获取access_key和一个未签名的请求。access_key可以在应用的“鉴权”选项中获取。如何构造一个未签名的请求请参考该文档。
 			h3 未签名请求
 			p 一个未签名请求如下：
-			pre= 'api.yun.com/cell?mnc=0&lac=1&cell=1&access_id=7afb1aed47efc13104f4caec2f067de9&timestamp=1408716782'
+			pre= 'api.91yzh.com/cell/search?mnc=0&lac=1&cell=1&access_id=7afb1aed47efc13104f4caec2f067de9&timestamp=1408716782'
 			p 当构造好签名之后，只需要把签名作为signature参数添加到请求中，最终的合法请求就完成了。
 			h3 构造参数string
 			p 我们并不直接把HMAC-SHA256方法作用于如上的未签名请求上，而是对为签名请求进行提取，构造出一个待签名string。然后我们对这个待签名string进行签名。
@@ -47,6 +47,6 @@ html
 			h3 把签名作为参数添加的请求中
 			p 我们已经获得了签名参数，我们需要把签名作为参数添加到请求当中，从而完全的构造了一个合法的API请求。
 			p API请求样例：
-			pre= 'http://api.yun.com/cell?mnc=0&lac=1&cell=1&access_id=7afb1aed47efc13104f4caec2f067de9&timestamp=1408716782&signature=MRSeAaBix8d%2FjZOE7Vr2swuTySAp%2BODsBX7tPu%2BhSFw%3D'
+			pre= 'api.91yzh.com/cell/search?mnc=0&lac=1&cell=1&access_id=7afb1aed47efc13104f4caec2f067de9&timestamp=1408716782&signature=MRSeAaBix8d%2FjZOE7Vr2swuTySAp%2BODsBX7tPu%2BhSFw%3D'
 		div.container.more
 			a.pull-left(href='/doc/restapi') <-REST API使用

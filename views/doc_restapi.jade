@@ -13,11 +13,11 @@ html
 			h3 概述
 			p 本文档将解释如何使用91云智汇REST API服务，即如何构造合法的API请求。当前所有的基站数据接口均使用GET方法，请求参数分为两类：1、鉴权参数；2、接口参数。91云智汇提供的所有接口均使用相同的鉴权参数，例如access_id、signature，鉴权参数用于验证当前请求为合法用户请求；但是不同的接口之间所使用的接口参数不同，取决于接口本身所提供的功能，例如基站查询接口需要提供mnc、lac、cell参数。
 			p 一个合法的基站请求接口样例如下：
-			pre= 'http://api.yun.com/cell?mnc=0&lac=1&cell=1&access_id=7afb1aed47efc13104f4caec2f067de9&timestamp=1408716782&signature=MRSeAaBix8d%2FjZOE7Vr2swuTySAp%2BODsBX7tPu%2BhSFw%3D'
+			pre= 'api.91yzh.com/cell/search?mnc=0&lac=1&cell=1&access_id=7afb1aed47efc13104f4caec2f067de9&timestamp=1408716782&signature=MRSeAaBix8d%2FjZOE7Vr2swuTySAp%2BODsBX7tPu%2BhSFw%3D'
 			p 其中，access_id、signature和timestamp是鉴权参数，丢失这些参数或者参数不正确的请求会被拒绝服务；mnc、lac、cell分别是运营商号码、小区号、大区号，用于查询相应的基站。添加参数的顺序与请求结果无关，除了要保证signature要签名整个请求。具体的签名方法查看此文档。
 			h3 请求地址
 			p API请求由请求地址和请求参数构成，每个接口的请求地址列在相应的接口说明中。例如，基站查询接口的请求地址为：
-			pre api.yun.com/cell
+			pre api.91yzh.com/cell/search
 			h3 请求参数
 			p 如上，请求参数由鉴权参数和接口参数构成，鉴权参数是不同接口之间通用的，并且与具体的接口功能无关。本REST API服务使用了3个鉴权参数：access_id用于标识发出该请求的应用；timestamp是UNIX时间戳，用于标识当前请求发出的时间；signature是请求的签名，用于验证该请求的完整性和正确性，即保护用户所购买的API服务不会被第三方盗用。
 			h3 添加鉴权参数
