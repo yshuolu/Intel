@@ -65,7 +65,7 @@ module.exports = {
 			'/search': {
 				params: ['mnc', 'lac', 'cell']
 			},
-			'/nearset': {
+			'/nearest': {
 				params: ['lng', 'lat', 'dis']
 			}
 		}

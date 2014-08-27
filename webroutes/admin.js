@@ -118,7 +118,7 @@ exports.pendingOrders = function(req, res, next){
 				pendingList.push(order);
 			}
 
-			res.render('pendinglist', {user: req.session.user, orders: pendingList});
+			res.render('pendinglist', {user: req.session.user, orders: pendingList, nav: 3});
 		});
 }
 

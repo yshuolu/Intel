@@ -295,7 +295,7 @@ function nearest(req, res, next){
 			delete item.obj.loc;
 			delete item.obj._id;
 			delete item.obj.source;
-			delete plainObject.isAdjusted;
+			delete item.obj.isAdjusted;
 
 			res.result.push(item.obj);
 		});

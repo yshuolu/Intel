@@ -1,3 +1,3 @@
 exports.show = function(req, res){
-	res.render('billing_info', {nav: 1});
+	res.render('billing_info', {user: req.session.user, nav: 1});
 }

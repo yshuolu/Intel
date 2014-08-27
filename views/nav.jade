@@ -9,6 +9,9 @@ div.navbar
 				a(href="/billing", class=nav===1?'active':'') 计费
 			li
 				a(href="/doc", class=nav===2?'active':'') 文档
+			if user && user.isAdmin
+				li
+					a(href='/admin', class=nav===3?'active':'') 管理员
 		ul.nav.right-nav
 			li
 				if user
