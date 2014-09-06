@@ -131,6 +131,12 @@ module.exports = {
 		},
 
 		/**
+		 * IP count
+		 */
+		ipCountLimit: 10,
+		ipCountAlive: minutesToMillis(1),
+
+		/**
 		 * Trial config
 		 */
 		trialLimit: 10, 
