@@ -134,7 +134,7 @@ module.exports = {
 		 * IP count
 		 */
 		ipCountLimit: 10,
-		ipCountAlive: minutesToMillis(1),
+		ipCountAlive: daysToMillis(1),
 
 		/**
 		 * Trial config
