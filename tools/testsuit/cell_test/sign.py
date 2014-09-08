@@ -19,6 +19,8 @@ def sign(url, paramTupleList, access_key):
 	#string to sign
 	stringToSign = urllib.quote_plus(url) + '&' + urllib.quote_plus(paramString)
 
+	print stringToSign
+
 	#sign string with HMAC-SHA256
 	m = hmac.new(access_key, stringToSign, hashlib.sha256)
 

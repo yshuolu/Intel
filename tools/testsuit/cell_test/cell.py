@@ -1,12 +1,12 @@
 import sys, urllib2, time, urllib
 import sign
 
-url = 'api.yun.com/cell/search'
-#url = 'api.91yzh.cn/cell'
+#url = 'api.yun.com/cell/search'
+url = 'api.91yzh.com/cell/search'
 
-access_id = '7afb1aed47efc13104f4caec2f067de9'
+access_id = 'cfe711de972384d0717d064b2de23e7e'
 
-access_key = 'a05bbf19a95657e4eb8ea29eee576237'
+access_key = '30c785bc281b810d38def2f475c9bd6a'
 
 def cell(mnc, lac, cell):
 	mnc = str(mnc)

@@ -42,6 +42,7 @@ html
 					tr
 						td
 							form
+								p 移动联通基站查询定位
 								| MNC:
 								input(type='text', name='mnc', id='mnc')
 								br
@@ -51,7 +52,31 @@ html
 								| CELL:
 								input(type='text', name='cell', id='cell')
 								br
-								button(type='button', onclick='request();') 试查
+								| HEX:
+								input(type='radio', name='hex', value='false', checked='true')
+								| 10进制
+								input(type='radio', name='hex', id='hex', value='true')
+								| 16进制
+								br
+								button(type='button', onclick='request();') 定位
+							form
+								p 电信基站查询定位
+								| SID:
+								input(type='text', name='mnc', id='sid')
+								br
+								| NID:
+								input(type='text', name='lac', id='nid')
+								br
+								| BID:
+								input(type='text', name='cell', id='bid')
+								br
+								| HEX:
+								input(type='radio', name='dx-hex', value='false', checked='true')
+								| 10进制
+								input(type='radio', name='dx-hex', id='dx-hex', value='true')
+								| 16进制
+								br
+								button(type='button', onclick='dx_cell();') 定位
 						td
 							pre.result
 		div.shelf
@@ -112,6 +137,22 @@ html
 						document.querySelector('.result').textContent = JSON.stringify(json, null, ' ');
 					}
 				}
-				xhr.open('GET', 'http://api.'+document.querySelector('.dummy').textContent+'/trial/ip/cell/search?mnc='+document.querySelector('#mnc').value+'&lac='+document.querySelector('#lac').value+'&cell='+document.querySelector('#cell').value);
+				var hex = document.querySelector('#hex').checked ? '&hex=true' : '';
+				xhr.open('GET', 'http://api.'+document.querySelector('.dummy').textContent+'/trial/ip/cell/search?mnc='+document.querySelector('#mnc').value+'&lac='+document.querySelector('#lac').value+'&cell='+document.querySelector('#cell').value+hex);
+				xhr.send();
+			}
+
+			function dx_cell(){
+				var xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function(){
+					if (xhr.readyState === 4 && xhr.status === 200){
+						var json = JSON.parse(xhr.responseText);
+						document.querySelector('.result').textContent = JSON.stringify(json, null, ' ');
+					}
+				}
+				var hex = document.querySelector('#dx-hex').checked ? '&hex=true' : '';
+				var sid = document.querySelector('#sid').value;
+				if (sid === '0' || sid === '1') sid = 'wrong';
+				xhr.open('GET', 'http://api.'+document.querySelector('.dummy').textContent+'/trial/ip/cell/search?mnc='+sid+'&lac='+document.querySelector('#nid').value+'&cell='+document.querySelector('#bid').value+hex);
 				xhr.send();
 			}
